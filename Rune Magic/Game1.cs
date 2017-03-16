@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nez;
+using Rune_Magic.GameStates;
 
 namespace Rune_Magic
 {
@@ -10,7 +11,8 @@ namespace Rune_Magic
     /// </summary>
     public class Game1 : Core
     {
-
+        private GameStateManager _manager;
+        private MainMenuState _mainMenu;
         public Game1()
         {
             Content.RootDirectory = "Content";
@@ -24,16 +26,16 @@ namespace Rune_Magic
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
             Window.AllowUserResizing = true;
 
-            // create our Scene with the DefaultRenderer and a clear color of CornflowerBlue
-            var myScene = Scene.createWithDefaultRenderer(Color.CornflowerBlue);
+            _mainMenu = new MainMenuState();
+            _manager = new GameStateManager(this, _mainMenu);
+        }
 
-            // set the scene so Nez can take over
-            scene = myScene;
+        public void SetScene(Scene newScene)
+        {
+            scene = newScene;
         }
     }
 }
